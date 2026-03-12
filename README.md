@@ -10,20 +10,18 @@ pinball/
 │   ├── fonts/        ← place font.ttf here
 │   ├── sounds/       ← place hit.wav and score.wav here
 │   └── textures/     ← optional texture files
-├── src/
-│   ├── main.cpp
-│   ├── Game.h / Game.cpp       – main game loop & event handling
-│   ├── Ball.h / Ball.cpp       – ball physics (velocity, gravity)
-│   ├── Flipper.h / Flipper.cpp – left/right flippers with rotation
-│   ├── Physics.h / Physics.cpp – collision detection & resolution
-│   └── UI.h / UI.cpp           – HUD, start screen, game-over overlay
-└── CMakeLists.txt
+└── src/
+    ├── main.cpp
+    ├── Game.h / Game.cpp       – main game loop & event handling
+    ├── Ball.h / Ball.cpp       – ball physics (velocity, gravity)
+    ├── Flipper.h / Flipper.cpp – left/right flippers with rotation
+    ├── Physics.h / Physics.cpp – collision detection & resolution
+    └── UI.h / UI.cpp           – HUD, start screen, game-over overlay
 ```
 
 ## Dependencies
 
 - **SFML 2.5+** – graphics, window, audio, system modules
-- **CMake 3.16+**
 - **C++17** compiler (GCC, Clang, MSVC)
 
 ### Install SFML on Ubuntu/Debian
@@ -34,18 +32,21 @@ sudo apt install libsfml-dev
 
 ## Build
 
+From the `pinball/` directory, compile the sources directly using your C++17 compiler and link against SFML:
+
 ```bash
 cd pinball
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build
+g++ -std=c++17 -Isrc -o pinball \
+    src/main.cpp src/Game.cpp src/Ball.cpp \
+    src/Flipper.cpp src/Physics.cpp src/UI.cpp \
+    -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 ```
-
-The executable `pinball` is placed in `build/`. Assets are copied automatically.
 
 ## Run
 
+From the `pinball/` directory (so that the `assets/` folder is found next to the executable):
+
 ```bash
-cd pinball/build
 ./pinball
 ```
 
